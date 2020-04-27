@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.scut.iisdc.dao.DepartmentDao">
+    <select id="departmentList" resultType="cn.edu.scut.iisdc.entity.Department">
+        SELECT * FROM department;
+    </select>
+    <select id="getDepartmentById" resultType="cn.edu.scut.iisdc.entity.Department">
+        SELECT * FROM department WHERE dept_id=#{id}
+    </select>
+
+    <select id="getChildrenListById" resultType="cn.edu.scut.iisdc.entity.Department">
+        SELECT * FROM department WHERE parent_id=#{id}
+    </select>
+    <select id="getParentIdById" resultType="java.lang.Integer">
+        SELECT parent_id FROM department WHERE dept_id=#{id}
+    </select>
+</mapper>

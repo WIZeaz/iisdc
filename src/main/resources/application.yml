@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/iisdc?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: n/iyffLe4q3,
+  messages:
+    encoding: UTF-8
+  info:
+    build:
+      encoding: UTF-8
+
+server:
+  servlet:
+    session:
+      cookie:
+        max-age: 600
+      timeout: 600
+
+
+mybatis:
+  type-aliases-package: cn.edu.scut.iisdc.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+
+
