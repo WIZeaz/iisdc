@@ -9,4 +9,5 @@ public interface RecordService {
     Integer getDocumentIdById(Integer id);
     void addRecord(Integer deptId,Record record);
     void deleteRecordById(Integer recordId) throws Exception;
+    List<Record> getLastNDayRecord(long n);
 }

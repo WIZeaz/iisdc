@@ -3,12 +3,14 @@ package cn.edu.scut.iisdc.service.impl;
 import cn.edu.scut.iisdc.annotation.Authority;
 import cn.edu.scut.iisdc.dao.DocumentDao;
 import cn.edu.scut.iisdc.entity.Document;
+import cn.edu.scut.iisdc.entity.Record;
 import cn.edu.scut.iisdc.service.DocumentService;
 import cn.edu.scut.iisdc.type.AuthType;
 import cn.edu.scut.iisdc.type.IdType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,9 @@ import java.util.List;
 public class DocumentServiceImpl implements DocumentService {
     @Autowired
     DocumentDao documentDao;
+
+    @Autowired
+    SimpleDateFormat formatter;
 
     @Authority(idType = IdType.documentId)
     @Override
@@ -59,6 +64,13 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<Document> getDocumentByUserId(String userId) {
         return documentDao.getDocumentByUserId(userId);
+    }
+
+    @Override
+    public List<Document> getLastNDayDocument(long n) {
+        Date to=new Date();
+        Date from=new Date(to.getTime()-n*24*60*60*1000);
+        return documentDao.getDocumentByDateRange(formatter.format(from),formatter.format(to));
     }
 
 }

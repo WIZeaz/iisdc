@@ -28,4 +28,7 @@ public interface DocumentDao {
 
     @Select("select * from document where user_id=#{id}")
     List<Document> getDocumentByUserId(String id);
+
+    @Select("select * from document where modify_time>=#{from} and modify_time<=#{to}")
+    List<Document> getDocumentByDateRange(String from,String to);
 }

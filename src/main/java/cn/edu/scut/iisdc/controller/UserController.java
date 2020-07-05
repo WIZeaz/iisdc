@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -34,6 +35,20 @@ public class UserController {
         return resultMap;
     }
 
+    @RequestMapping(value = "/user",method = {RequestMethod.GET})
+    public HashMap<String,Object> searchUser(@RequestParam HashMap<String,Object> params){
+        HashMap<String,Object> resultMap=new HashMap<>();
+        try{
+            String deptId=(String) params.get("deptId");
+            List<User> users=userService.getUserByDeptId(deptId);
+            resultMap.put("users",users);
+            resultMap.put("success",true);
+        } catch (Exception e){
+            resultMap.put("success",false);
+            resultMap.put("message",e.toString());
+        }
+        return resultMap;
+    }
 
     @RequestMapping(value = "/user",method = {RequestMethod.POST})
     public HashMap<String,Object> register(@RequestParam HashMap<String,Object> params){
@@ -79,6 +94,19 @@ public class UserController {
         HashMap<String,Object> resultMap=new HashMap<>();
         try{
             resultMap.put("documents",documentService.getDocumentByUserId(userId));
+            resultMap.put("success",true);
+        } catch (Exception e){
+            resultMap.put("success",false);
+            resultMap.put("message",e.toString());
+        }
+        return resultMap;
+    }
+
+    @RequestMapping(value = "/user/{id}",method = {RequestMethod.PUT})
+    public HashMap<String,Object> changeUserGroup(@PathVariable("id") String userId,@RequestParam(value = "group") String group){
+        HashMap<String,Object> resultMap=new HashMap<>();
+        try{
+            userService.setUserGroup(userId,group);
             resultMap.put("success",true);
         } catch (Exception e){
             resultMap.put("success",false);

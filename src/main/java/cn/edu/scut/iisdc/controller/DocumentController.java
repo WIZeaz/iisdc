@@ -78,6 +78,20 @@ public class DocumentController {
         return resultMap;
     }
 
+    @RequestMapping(value = "/document",method = RequestMethod.GET)
+    public HashMap<String,Object> getDocumentsByDays(@RequestParam HashMap<String,Object> params){
+        HashMap<String,Object> resultMap=new HashMap<>();
+        try{
+            long days=Long.valueOf((String)params.get("days"));
+            resultMap.put("documents",documentService.getLastNDayDocument(days));
+            resultMap.put("success",true);
+        } catch (Exception e){
+            resultMap.put("success",false);
+            resultMap.put("message",e.toString());
+        }
+        return resultMap;
+    }
+
 
     @RequestMapping(value = "/document/{id}/record",method = RequestMethod.GET)
     public HashMap<String,Object> record(@PathVariable("id") Integer documentId){

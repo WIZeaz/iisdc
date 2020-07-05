@@ -1,6 +1,7 @@
 package cn.edu.scut.iisdc.service;
 
 import cn.edu.scut.iisdc.entity.Document;
+import cn.edu.scut.iisdc.entity.Record;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public interface DocumentService {
     void addDocument(Document document);
     void deleteDocumentById(Integer documentId) throws Exception;
     List<Document> getDocumentByUserId(String userId);
+    List<Document> getLastNDayDocument(long n);
+
 }

@@ -36,6 +36,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUserByDeptId(String deptId) throws Exception {
+        return userDao.getUserByDeptId(deptId);
+    }
+
+    @Override
+
+    @Authority(idType = IdType.userId)
+    public void setUserGroup(String userId, String group) throws Exception {
+        userDao.setUserGroup(userId,group);
+    }
+
+    @Override
     @Authority(idType = IdType.userId)
     public void deleteUserBuId(String id) throws Exception {
         User user=userDao.getUserById(id);

@@ -50,4 +50,19 @@ public class RecordController {
         }
         return resultMap;
     }
+
+    @RequestMapping(value = "/record",method = RequestMethod.GET)
+    public HashMap<String,Object> getRecordsByDate(@RequestParam HashMap<String,Object> params){
+        HashMap<String,Object> resultMap=new HashMap<>();
+        try{
+            Record record=new Record();
+            Integer days=Integer.valueOf((String)params.get("days"));
+            resultMap.put("records",recordService.getLastNDayRecord(days));
+            resultMap.put("success",true);
+        } catch (Exception e){
+            resultMap.put("success",false);
+            resultMap.put("message",e.toString());
+        }
+        return resultMap;
+    }
 }

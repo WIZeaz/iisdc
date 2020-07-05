@@ -1,23 +1,25 @@
 package cn.edu.scut.iisdc;
 
+import cn.edu.scut.iisdc.entity.Record;
+import cn.edu.scut.iisdc.service.RecordService;
 import cn.edu.scut.iisdc.service.TokenService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+import java.util.List;
+
 @SpringBootTest
 class IisdcApplicationTests {
 
     @Autowired
-    TokenService tokenService;
-
+    RecordService recordService;
 
     @Test
     void contextLoads() {
-        System.out.println(tokenService.authorizeOperation(2,3));
-        System.out.println(tokenService.authorizeOperation(3,2));
-        System.out.println(tokenService.authorizeOperation(2,1));
-
+        List<Record> recordList=recordService.getLastNDayRecord(3);
+        System.out.println(recordList);
     }
 
 }

@@ -25,5 +25,6 @@ public interface RecordDao {
     @Insert("insert into record(document_id,status,`desc`,create_time) values (#{documentId},#{status},#{desc},#{createTime})")
     void addRecord(Record record);
 
-
+    @Select("SELECT * FROM record WHERE create_time>=#{from} AND create_time<=#{to}")
+    List<Record> getRecordByDateRange(String from,String to);
 }

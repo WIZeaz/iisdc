@@ -5,9 +5,16 @@
 <!--mapper为根元素，namespace指定了命名空间-->
 
 <mapper namespace="cn.edu.scut.iisdc.dao.UserDao">
+    <update id="setUserGroup">
+        UPDATE user SET `group`=#{group} WHERE user_id=#{userId};
+    </update>
 
     <select id="getUserById" parameterType="string" resultType="cn.edu.scut.iisdc.entity.User">
         SELECT user_id userId,dept_id deptId,password,`name`,gender,origin_name originName,`group` FROM user WHERE user_id = #{id}
+    </select>
+
+    <select id="getUserByDeptId" resultType="cn.edu.scut.iisdc.entity.User">
+        SELECT * FROM user WHERE dept_id = #{deptId}
     </select>
 
 

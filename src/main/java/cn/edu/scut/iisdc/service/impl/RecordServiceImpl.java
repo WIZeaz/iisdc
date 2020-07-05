@@ -9,13 +9,18 @@ import cn.edu.scut.iisdc.type.IdType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 @Service
 public class RecordServiceImpl implements RecordService {
     @Autowired
     RecordDao recordDao;
+
+    @Autowired
+    SimpleDateFormat formatter;
 
     @Authority(idType=IdType.documentId)
     @Override
@@ -43,5 +48,12 @@ public class RecordServiceImpl implements RecordService {
     public void deleteRecordById(Integer recordId) throws Exception {
         if (recordDao.getRecordById(recordId)==null) throw new Exception("no such record");
         recordDao.deleteRecordId(recordId);
+    }
+
+    @Override
+    public List<Record> getLastNDayRecord(long n) {
+        Date to=new Date();
+        Date from=new Date(to.getTime()-n*24*60*60*1000);
+        return recordDao.getRecordByDateRange(formatter.format(from),formatter.format(to));
     }
 }
